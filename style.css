@@ -30,7 +30,6 @@ body {
     z-index: 100;
 }
 
-/* Style Selection Buttons */
 .style-selection {
     display: flex;
     border-radius: 8px;
@@ -55,7 +54,6 @@ body {
     color: white;
 }
 
-/* Probability Slider Styles */
 .probability-slider-container {
     flex-grow: 1;
     max-width: 600px;
@@ -110,12 +108,43 @@ body {
     border-radius: 4px;
     transform: translateX(-50%);
     z-index: 5;
-    left: 0%; /* Dynamic position */
-    transition: left 0.5s ease;
+    left: 0%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+}
+
+.anim-slider-move {
+    animation: slider-loop 0.5s linear infinite alternate;
+}
+
+@keyframes slider-loop {
+    0% { left: 0%; }
+    100% { left: 100%; }
+}
+
+.run-burst {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 80px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(0,0,0,0.5), 0 0 40px #827350;
+    z-index: 100;
+    opacity: 0;
+}
+
+.anim-run-burst {
+    animation: burst-animation 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes burst-animation {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(1.2); opacity: 0; }
 }
 
 
