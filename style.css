@@ -42,7 +42,7 @@ body {
 .game-container {
     width: 90vw;
     max-width: 1000px;
-    height: 60vh;
+    height: 80vh;
     min-height: 400px;
     position: relative;
     overflow: hidden;
@@ -58,6 +58,44 @@ body {
     background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
     z-index: 1;
 }
+
+.scoreboard-wooden {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translateX(-50%);
+    min-width: 260px;
+    background: linear-gradient(90deg, #623f1c 0%, #7a531f 100%);
+    border: 6px solid #9a8e81;
+    border-radius: 18px;
+    padding: 22px 36px 18px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    z-index: 10;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.score-label {
+    font-weight: bold;
+    color: #dcd7d2;
+    margin-right: 10px;
+}
+.score-row span:last-child {
+    color: #ffffff;
+    font-weight: bold;
+    min-width: 32px;
+    text-align: right;
+}
+
 
 .grass {
     position: absolute;
@@ -212,7 +250,7 @@ body {
 @keyframes bowl-and-hit {
     0% {
         left: 110%;
-        bottom: calc(80% + 120px);
+        bottom: calc(70% + 50px);
     }
 
     15% {
@@ -269,7 +307,7 @@ body {
 @keyframes bowl-to-stumps {
     0% {
         left: 110%;
-        bottom: calc(80% + 120px);
+        bottom: calc(50% + 50px);
     }
 
     30% {
