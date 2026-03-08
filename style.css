@@ -481,3 +481,19 @@ body {
         opacity: 0;
     }
 }
+.restart-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 20px;
+}
+
+.restart-btn:hover {
+    background-color: #218838;
+}

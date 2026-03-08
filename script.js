@@ -70,7 +70,7 @@ function stopSlider() {
         const leftValue = computedStyle.left;
         const trackWidth = document.getElementById('slider-track').offsetWidth;
         const percentage = (parseFloat(leftValue) / trackWidth) * 100;
-        
+
         pointer.classList.remove('anim-slider-move');
         pointer.style.left = percentage + '%';
         return percentage / 100;
@@ -99,11 +99,11 @@ function showRunText(text) {
 
 gameContainer.addEventListener('click', () => {
     if (isAnimating || ballsBowled >= totalBalls || wickets >= totalWickets) return;
-    
+
     isAnimating = true;
     const position = stopSlider();
     const outcome = getOutcome(position);
-    
+
     ballsBowled++;
     if (outcome.score === -1) {
         wickets++;
@@ -121,10 +121,14 @@ function playShotAnimation() {
     resetAnimations();
     ball.classList.add('anim-shot-ball');
     batsman.classList.add('anim-shot-bat');
-    
+
     setTimeout(() => {
         isAnimating = false;
-        if (ballsBowled < totalBalls && wickets < totalWickets) startSlider();
+        if (ballsBowled < totalBalls && wickets < totalWickets) {
+            startSlider();
+        } else {
+            checkGameOver();
+        }
     }, 2000); // matches bowl-and-hit duration
 }
 
@@ -134,23 +138,53 @@ function playWicketAnimation() {
     batsman.classList.add('anim-wicket-bat');
     stumps.classList.add('anim-stumps-break');
     bails.classList.add('anim-bails-fly');
-    
+
     setTimeout(() => {
         isAnimating = false;
-        if (ballsBowled < totalBalls && wickets < totalWickets) startSlider();
+        if (ballsBowled < totalBalls && wickets < totalWickets) {
+            startSlider();
+        } else {
+            checkGameOver();
+        }
     }, 1500); // matches bowl-to-stumps duration
+}
+
+function checkGameOver() {
+    if (ballsBowled >= totalBalls || wickets >= totalWickets) {
+        setTimeout(() => {
+            alert(`GAME OVER!\nFinal Score: ${runs}/${wickets}\nOvers: ${calculateOvers(ballsBowled)}`);
+        }, 500);
+    }
+}
+
+function calculateOvers(balls) {
+    const overs = Math.floor(balls / ballsPerOver);
+    const ballsInOver = balls % ballsPerOver;
+    return `${overs}.${ballsInOver}`;
+}
+
+function restartGame() {
+    runs = 0;
+    wickets = 0;
+    ballsBowled = 0;
+    isAnimating = false;
+    updateScoreboard();
+    resetAnimations();
+    runText.textContent = '';
+    setStyle(currentStyle);
+    startSlider();
 }
 
 function setStyle(style) {
     currentStyle = style;
-    
+
     // update button state
     document.getElementById('btn-aggressive').classList.toggle('active', style === 'aggressive');
     document.getElementById('btn-defensive').classList.toggle('active', style === 'defensive');
 
     const config = styleConfig[style];
     const track = document.getElementById('slider-track');
-    
+
     // create segments
     let segmentsHTML = '';
     config.forEach(item => {
@@ -164,9 +198,10 @@ function setStyle(style) {
         </div>
     `;
     track.innerHTML = segmentsHTML;
-    
+
     if (!isAnimating) startSlider();
 }
+
 
 function playBall() {
 }
