@@ -10,34 +10,129 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
+    overflow: hidden;
 }
 
-.controls {
-    margin-bottom: 20px;
+.controls-container {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    background-color: #2b2b2b;
+    padding: 20px 40px;
     display: flex;
-    gap: 15px;
-    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    border-top: 3px solid #444;
+    z-index: 100;
 }
 
-.action-btn {
+/* Style Selection Buttons */
+.style-selection {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #555;
+    flex-shrink: 0;
+}
+
+.style-btn {
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
-    color: white;
-    background: linear-gradient(135deg, #0052cc, #003d99);
+    color: #ccc;
+    background-color: #333;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.1s, box-shadow 0.1s;
+    transition: all 0.2s;
 }
 
-.action-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+.style-btn.active {
+    background-color: #007bff;
+    color: white;
 }
+
+/* Probability Slider Styles */
+.probability-slider-container {
+    flex-grow: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slider-track {
+    height: 36px;
+    display: flex;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    overflow: visible;
+    position: relative;
+}
+
+.segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.segment.wicket { background: linear-gradient(180deg, #d32f2f, #b71c1c); }
+.segment.score-0 { background: linear-gradient(180deg, #616161, #424242); }
+.segment.score-1 { background: linear-gradient(180deg, #4caf50, #2e7d32); }
+.segment.score-2 { background: linear-gradient(180deg, #fbc02d, #f9a825); }
+.segment.score-3 { background: linear-gradient(180deg, #fb8c00, #ef6c00); }
+.segment.score-4 { background: linear-gradient(180deg, #f4511e, #d84315); }
+.segment.score-6 { background: linear-gradient(180deg, #7b1fa2, #4a148c); }
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.slider-pointer {
+    position: absolute;
+    top: -12px;
+    bottom: -12px;
+    width: 14px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    z-index: 5;
+    left: 0%; /* Dynamic position */
+    transition: left 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.action-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #28a745, #218838);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+
+
 
 .game-container {
     width: 90vw;
@@ -48,6 +143,7 @@ body {
     overflow: hidden;
     border-radius: 12px;
     background: #87CEEB;
+    margin-top: 50px;
 }
 
 .sky {
@@ -59,7 +155,7 @@ body {
     z-index: 1;
 }
 
-.scoreboard-wooden {
+.scoreboard {
     position: absolute;
     left: 50%;
     top: 30px;

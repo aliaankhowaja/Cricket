@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Cricket Sideview Game</title>
 </head>
-<body>
-    <div class="controls">
-        <button id="btn-shot" class="action-btn" onclick="shot()">Play Shot</button>
-        <button id="btn-wicket" class="action-btn" onclick="wicket()">Wicket</button>
-    </div>
 
+<body>
     <div class="game-container">
         <div class="sky">
-            <div class="scoreboard-wooden">
+            <div class="scoreboard">
                 <div class="score-row">
                     <span class="score-label">Runs:</span>
                     <span id="score-runs">0</span>
@@ -31,7 +28,7 @@
         </div>
         <div class="grass"></div>
         <div class="pitch">
-            
+
             <div class="stumps">
                 <div class="stump stump-left"></div>
                 <div class="stump stump-mid"></div>
@@ -53,6 +50,33 @@
         </div>
     </div>
 
+    <div class="controls-container">
+        <div class="style-selection">
+            <button id="btn-aggressive" class="style-btn" onclick="setStyle('aggressive')">Aggressive</button>
+            <button id="btn-defensive" class="style-btn active" onclick="setStyle('defensive')">Defensive</button>
+        </div>
+
+        <div class="probability-slider-container">
+            <div class="slider-track" id="slider-track">
+                <div class="segment wicket" style="width: 40%;">Wicket</div>
+                <div class="segment score-0" style="width: 10%;">0</div>
+                <div class="segment score-1" style="width: 10%;">1</div>
+                <div class="segment score-2" style="width: 10%;">2</div>
+                <div class="segment score-3" style="width: 5%;">3</div>
+                <div class="segment score-4" style="width: 10%;">4</div>
+                <div class="segment score-6" style="width: 15%;">6</div>
+                <div class="slider-pointer" id="slider-pointer">
+                    <div class="pointer-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-controls">
+            <button id="btn-play" class="action-btn" onclick="playBall()">Play Ball</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
