@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #362c2c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #0052cc, #003d99);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.action-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-container {
+    width: 90vw;
+    max-width: 1000px;
+    height: 60vh;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #87CEEB;
+}
+
+.sky {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
+    z-index: 1;
+}
+
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, #56ab2f, #a8e063);
+    z-index: 2;
+}
+
+.pitch {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    width: 100%;
+    height: 60px;
+    background: #d8c39b;
+    border-top: 2px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    z-index: 3;
+}
+
+.stumps {
+    position: absolute;
+    left: 10px;
+    bottom: calc(20% + 15px);
+    width: 30px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 4;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stump {
+    width: 6px;
+    height: 100%;
+    background: #9f7f00;
+    border-radius: 3px 3px 0 0;
+}
+
+.bails {
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    width: 34px;
+    height: 6px;
+    background: #e0b997;
+    border-radius: 3px;
+    z-index: 5;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+
+.batsman {
+    position: absolute;
+    left: calc(3% + 40px);
+    bottom: calc(10% + 20px);
+    width: 50px;
+    height: 100px;
+    z-index: 6;
+}
+
+.head {
+    width: 25px;
+    height: 25px;
+    background: #FFD166;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.body {
+    width: 20px;
+    height: 40px;
+    background: #fff;
+    position: absolute;
+    top: 30px;
+    left: 12px;
+    border-radius: 5px;
+}
+
+.leg {
+    width: 10px;
+    height: 35px;
+    background: #fff;
+    position: absolute;
+    top: 65px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+}
+
+.leg-front {
+    left: 9px;
+    z-index: 2;
+}
+
+.leg-back {
+    left: 22px;
+    z-index: 1;
+}
+
+.arm {
+    position: absolute;
+    top: 32px;
+    left: 15px;
+    width: 10px;
+    height: 35px;
+    background: rgba(255, 209, 102, 0.8);
+    transform-origin: top center;
+    transform: rotate(20deg);
+    z-index: 3;
+}
+
+.bat {
+    position: absolute;
+    bottom: -40px;
+    left: -2px;
+    width: 12px;
+    height: 50px;
+    background: #e67e22;
+    border-radius: 2px;
+    box-shadow: inset -2px 0 rgba(0, 0, 0, 0.2);
+    border-top: 5px solid #333;
+}
+
+.ball {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle at 30% 30%, #ff5e62, #ff9966);
+    border-radius: 50%;
+    left: 110%;
+    bottom: calc(20% + 25px);
+    z-index: 5;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3), 0 5px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+}
+
+
+.anim-shot-ball {
+    opacity: 1;
+    animation: bowl-and-hit 2s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+}
+
+.anim-shot-bat .arm {
+    animation: swing-bat 0.5s ease-in-out forwards;
+    animation-delay: 0.4s;
+}
+
+@keyframes bowl-and-hit {
+    0% {
+        left: 110%;
+        bottom: calc(80% + 120px);
+    }
+
+    15% {
+        left: 30%;
+        bottom: calc(20% + 5px);
+    }
+
+    25% {
+        left: calc(5% + 50px);
+        bottom: calc(20% + 35px);
+    }
+
+    100% {
+        left: 110%;
+        bottom: 500%;
+    }
+}
+
+@keyframes swing-bat {
+    0% {
+        transform: rotate(20deg);
+    }
+
+    50% {
+        transform: rotate(-80deg);
+    }
+
+    100% {
+        transform: rotate(20deg);
+    }
+}
+
+
+.anim-wicket-ball {
+    opacity: 1;
+    animation: bowl-to-stumps 1.5s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+}
+
+.anim-wicket-bat .arm {
+    animation: swing-miss 0.5s ease-in-out forwards;
+    animation-delay: 0.45s;
+}
+
+.anim-stumps-break {
+    animation: break-stumps 0.5s forwards;
+    animation-delay: 0.65s;
+}
+
+.anim-bails-fly {
+    animation: fly-bails 0.5s forwards;
+    animation-delay: 0.65s;
+}
+
+@keyframes bowl-to-stumps {
+    0% {
+        left: 110%;
+        bottom: calc(80% + 120px);
+    }
+
+    30% {
+        left: 30%;
+        bottom: calc(20% + 5px);
+    }
+
+    100% {
+        left: -15%;
+        bottom: calc(40% + 50px);
+    }
+}
+
+@keyframes swing-miss {
+    0% {
+        transform: rotate(20deg);
+    }
+
+    50% {
+        transform: rotate(-90deg);
+    }
+
+    100% {
+        transform: rotate(20deg);
+    }
+}
+
+@keyframes break-stumps {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(-40deg) translateX(-10px) translateY(10px);
+    }
+}
+
+@keyframes fly-bails {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px) translateX(-40px) rotate(180deg);
+        opacity: 0;
+    }
+}
